@@ -7,14 +7,15 @@ import java.util.List;
 public class Pedido {
 
 	private Integer id;
+	private Cliente cliente;
 	private String tamanho;
 	private String sabor;
 	private List<Personalizacao> personalizacoes;
 	private Date dataCadastramento;
 
-	public Pedido(Integer id, String tamanho, String sabor) {
-		super();
+	public Pedido(Integer id, Cliente cliente, String tamanho, String sabor) {
 		this.id = id;
+		this.cliente = cliente;
 		this.tamanho = tamanho;
 		this.sabor = sabor;
 		this.personalizacoes = new ArrayList<>();
@@ -29,6 +30,14 @@ public class Pedido {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public String getTamanho() {
@@ -54,7 +63,7 @@ public class Pedido {
 	public void setPersonalizacoes(List<Personalizacao> personalizacoes) {
 		this.personalizacoes = personalizacoes;
 	}
-	
+
 	public void inserePersonalizacao(Personalizacao personalizacao) {
 		this.personalizacoes.add(personalizacao);
 	}
@@ -69,8 +78,8 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id + ", tamanho=" + tamanho + ", sabor=" + sabor + ", personalizacoes=" + personalizacoes
-				+ ", dataCadastramento=" + dataCadastramento + "]";
+		return "Pedido [id=" + id + ", cliente=" + cliente + ", tamanho=" + tamanho + ", sabor=" + sabor
+				+ ", personalizacoes=" + personalizacoes + ", dataCadastramento=" + dataCadastramento + "]";
 	}
 
 }

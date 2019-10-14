@@ -3,16 +3,23 @@ package com.uds.rest.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.uds.rest.exception.PedidoNotFoundException;
+import com.uds.rest.model.Cliente;
 import com.uds.rest.model.Pedido;
 import com.uds.rest.model.Personalizacao;
 
 @Component
 public class PedidoDAOService {
 
+	
 	private static List<Pedido> pedidos = new ArrayList<>();
+	
+	static {
+		pedidos.add(new Pedido(1, new Cliente(99, "José", "Almeida"), "peguena", "calabresa"));
+	}
 	
 	
 	public List<Pedido> findAll(){

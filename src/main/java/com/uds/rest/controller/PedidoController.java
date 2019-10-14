@@ -16,9 +16,11 @@ import com.uds.rest.exception.ClienteNotFoundException;
 import com.uds.rest.exception.SaborNotFoundException;
 import com.uds.rest.exception.TamanhoNotFoundException;
 import com.uds.rest.model.Cliente;
+import com.uds.rest.model.Pedido;
 import com.uds.rest.model.Sabor;
 import com.uds.rest.model.Tamanho;
 import com.uds.rest.service.ClienteDAOService;
+import com.uds.rest.service.PedidoDAOService;
 import com.uds.rest.service.SaborDAOService;
 import com.uds.rest.service.TamanhoDAOService;
 
@@ -33,6 +35,9 @@ public class PedidoController {
 	
 	@Autowired
 	private TamanhoDAOService tamanhoService;
+	
+	@Autowired
+	private PedidoDAOService pedidoService;
 	
 	/* ------------ Sabores ---------------------------- */
 	@GetMapping(path = "pizzaria-uds/sabores")
@@ -116,6 +121,27 @@ public class PedidoController {
 			.fromCurrentRequest()
 			.path("/{id}")
 			.buildAndExpand(tamanhoSalvo.getId())
+			.toUri();
+		
+		return ResponseEntity.created(location).build();
+	}
+	
+	
+	/* ------------ Clientes ---------------------------- */
+	@GetMapping(path = "pizzaria-uds/pedidos")
+	public List<Pedido> findAllPedidos(){
+		return pedidoService.findAll();
+	}
+	
+	@PostMapping(path = "pizzaria-uds/pedidos/{id}")
+	public ResponseEntity<Object> criaPedido(@RequestBody Pedido pedido) {
+		
+		Pedido pedidoSalvo = pedidoService.save(pedido);
+		
+		URI location = ServletUriComponentsBuilder
+			.fromCurrentRequest()
+			.path("/{id}")
+			.buildAndExpand(pedidoSalvo.getId())
 			.toUri();
 		
 		return ResponseEntity.created(location).build();
