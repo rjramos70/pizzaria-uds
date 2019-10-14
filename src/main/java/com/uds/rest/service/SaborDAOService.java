@@ -1,6 +1,7 @@
 package com.uds.rest.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -34,6 +35,17 @@ public class SaborDAOService {
 		for(Sabor sabor : sabores) {
 			if(sabor.getId() == id) {
 				return sabor;
+			}
+		}
+		return null;
+	}
+	
+	public Sabor findBySabor(String sabor) {
+		Iterator<Sabor> iterator = sabores.iterator();
+		while (iterator.hasNext()) {
+			Sabor sb = iterator.next();
+			if (sb.getSabor().equalsIgnoreCase(sabor)) {
+				return sb;
 			}
 		}
 		return null;

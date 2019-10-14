@@ -1,6 +1,7 @@
 package com.uds.rest.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ public class TamanhoDAOService {
 	
 	static {
 		tamanhos.add(new Tamanho(1, "pequena", 20, 15));
-		tamanhos.add(new Tamanho(2, "média", 30, 20));
+		tamanhos.add(new Tamanho(2, "media", 30, 20));
 		tamanhos.add(new Tamanho(3, "grande", 40, 25));
 	}
 	
@@ -39,4 +40,15 @@ public class TamanhoDAOService {
 		return null;
 	}
 	
+	public Tamanho findByTamanho(String tamanho) {
+		Iterator<Tamanho> iterator = tamanhos.iterator();
+		while (iterator.hasNext()) {
+			Tamanho tam = iterator.next();
+	
+			if (tam.getTamanho().equalsIgnoreCase(tamanho)) {
+				return tam;
+			}
+		}
+		return null;
+	}
 }

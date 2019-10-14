@@ -1,15 +1,14 @@
 package com.uds.rest.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.uds.rest.exception.PedidoNotFoundException;
 import com.uds.rest.model.Cliente;
 import com.uds.rest.model.Pedido;
-import com.uds.rest.model.Personalizacao;
+import com.uds.rest.model.Pizza;
 
 @Component
 public class PedidoDAOService {
@@ -17,8 +16,14 @@ public class PedidoDAOService {
 	
 	private static List<Pedido> pedidos = new ArrayList<>();
 	
+	private static ClienteDAOService clienteService = new ClienteDAOService();
+	private static PizzaDAOService pizzaService = new PizzaDAOService();
+	
 	static {
-		pedidos.add(new Pedido(1, new Cliente(99, "José", "Almeida"), "peguena", "calabresa"));
+		Cliente findOneCliente = clienteService.findOne(1);
+		Pizza findOnePizza = pizzaService.findOne(1);
+		
+		pedidos.add(new Pedido(pedidos.size() + 1, findOneCliente, findOnePizza));
 	}
 	
 	
@@ -43,19 +48,17 @@ public class PedidoDAOService {
 		return null;
 	}
 	
-	public Pedido insereListaDePersonalizoes(Pedido pedido, List<Personalizacao> personalizacoes) {
-		if(findOne(pedido.getId()) == null) {
-			throw new PedidoNotFoundException("id: " + pedido.getId());
-		}
-		pedido.setPersonalizacoes(personalizacoes);
-		return pedido;
-	}
 	
-	public Pedido inserePersonalizoes(Pedido pedido, Personalizacao personalizacao) {
-		if(findOne(pedido.getId()) == null) {
-			throw new PedidoNotFoundException("id: " + pedido.getId());
+	
+	public Pedido deleteById(int id) {
+		Iterator<Pedido> iterator = pedidos.iterator();
+		while(iterator.hasNext()) {
+			Pedido pedido = iterator.next();
+			if (pedido.getId() == id) {
+				iterator.remove();
+				return pedido;
+			}
 		}
-		pedido.inserePersonalizacao(personalizacao);
-		return pedido;
+		return null;
 	}
 }

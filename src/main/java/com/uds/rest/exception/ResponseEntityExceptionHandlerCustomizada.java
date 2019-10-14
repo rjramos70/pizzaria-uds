@@ -43,4 +43,16 @@ public class ResponseEntityExceptionHandlerCustomizada extends ResponseEntityExc
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(PizzaNotFoundException.class)
+	public final ResponseEntity<Object> handlePizzaNotFoundException(PizzaNotFoundException ex, WebRequest request) throws Exception{
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(PersonalizacaoNotFoundException.class)
+	public final ResponseEntity<Object> handlePersonalizacaoNotFoundException(PersonalizacaoNotFoundException ex, WebRequest request) throws Exception{
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+	}
 }
