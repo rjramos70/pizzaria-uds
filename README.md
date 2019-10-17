@@ -2,22 +2,22 @@
 APIs Rest para o sistema de gerenciamento de pedido de Pizza
 
 
-### Stack utilizada
+## Stack utilizada
 
 	- Java 8
 	- Spring Boot 2.1.7.RELEASE
 	- Banco de Dados H2
 	- JPA
 
-### Geração da imagem Docker
+## Geração da imagem Docker
 
-## Via prompt de comando
+### Via prompt de comando
 
 1. Entre na pasta raiz do projeto
 2. Digite o comando mvn clean package -DskipTests
 
 
-## Via IDE Spring Tool Suite
+### Via IDE Spring Tool Suite
 
 1. Clique no nome do projeto com o botão no nome do projeto > Run As > Maven Buil...
 2. Na aba Main, no campo Goals, preencher com o comando: clean package -DskipTests
@@ -26,17 +26,18 @@ APIs Rest para o sistema de gerenciamento de pedido de Pizza
 Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefatos na pasta target, e nesse projeto o nome da imagem gerada é uds-pizzaria:0.0.1-SNAPSHOT
 
 
-### Executar a Imagem
+## Executar a Imagem
 
 1. Via Docker executar o comando que executará a imagem:
 	
 	docker run -p 9090:9090 uds-pizzaria:0.0.1-SNAPSHOT
 	
 
-### Acesso as APIs
+## Acesso as APIs
 
-## Sabores
+### Sabores
 
+	
 	- Listar os sabores
 	
 	GET http://localhost:9090/pizzaria-uds/sabores	
@@ -62,6 +63,7 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	```
 	
 	
+	
 	- Sabor específico
 	
 	GET http://localhost:9090/pizzaria-uds/sabores/10001
@@ -73,6 +75,7 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	    "tempoAdicional": 0
 	}
 	```
+
 
 	
 	- Cadastrar novo Sabor
@@ -86,6 +89,8 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	}
 	```
 	
+	
+	
 	- Remover Sabor específico
 	
 	DELETE http://localhost:9090/pizzaria-uds/sabores/10002
@@ -95,7 +100,7 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	```
 	
 
-## Tamanhos
+### Tamanhos
 
 	- Listar os tamanhos
 	
@@ -125,6 +130,7 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	```
 	
 	
+	
 	- Tamanho específico
 	
 	GET http://localhost:9090/pizzaria-uds/tamanhos/10002	
@@ -137,6 +143,7 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	    "tempoDePrepadro": 30
 	}
 	```
+
 
 	
 	- Cadastrar novo Tamanho
@@ -151,6 +158,8 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	}
 	```	
 	
+	
+	
 	- Remover Tamanho específico
 	
 	DELETE http://localhost:9090/pizzaria-uds/tamanhos/10002
@@ -160,7 +169,7 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	```
 	
 
-## Personalizações
+### Personalizações
 
 	- Listar as personalizações
 	
@@ -190,6 +199,7 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	```
 	
 	
+	
 	- Tamanho específico
 	
 	GET http://localhost:9090/pizzaria-uds/personalizacoes/113
@@ -202,6 +212,7 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	    "tempoAdicional": 5
 	}
 	```
+
 
 	
 	- Cadastrar nova personalização Sabor
@@ -216,6 +227,8 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	}
 	```
 	
+	
+	
 	- Remover Personalização específico
 	
 	DELETE http://localhost:9090/pizzaria-uds/personalizacoes/112
@@ -225,7 +238,7 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	```
 	
 
-## Pizzas
+### Pizzas
 
 	- Listar as pizzas já cadastradas
 	
@@ -247,6 +260,7 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	```
 	
 	
+	
 	- Pizza específica
 	
 	GET http://localhost:9090/pizzaria-uds/pizzas/10001
@@ -264,6 +278,7 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	}
 	```
 
+
 	
 	- Cadastrar nova pizza
 	
@@ -276,6 +291,8 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	}
 	```
 
+
+
 	- Personalizar pizza
 	
 	PUT http://localhost:9090/pizzaria-uds/pizzas/10001/personalizar
@@ -286,7 +303,10 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	}
 	```
 
+
 	Response:
+	
+	
 	
 	```
 	{
@@ -308,6 +328,8 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	}
 	```
 	
+	
+	
 	- Remover Pizza específico
 	
 	DELETE http://localhost:9090/pizzaria-uds/pizzas/10001
@@ -316,7 +338,10 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	Status 200 OK
 	```
 	
+	
 	Caso haja pedido vinculado a seguinte mensagem será mostrada:
+	
+	
 	
 	```
 	{
@@ -327,7 +352,7 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	```
 	
 
-## Pedidos
+### Pedidos
 
 	- Listar os pedidos
 	
@@ -346,6 +371,7 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	```
 	
 	
+	
 	- Pedido específico
 	
 	GET http://localhost:9090/pizzaria-uds/pedidos/55555
@@ -361,6 +387,7 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 	```
 
 	
+	
 	- Cadastrar novo pedido
 	
 	POST http://localhost:9090/pizzaria-uds/pedidos
@@ -370,6 +397,7 @@ Seja pelo prompt de comando, ou pela IDE, os dois comandos vão gerar os artefat
 		"id":1
 	}
 	```
+
 
 	Obs: Id da Pizza previamente cadastrada e que não tenha sido utilizado em outro pedido.
 
