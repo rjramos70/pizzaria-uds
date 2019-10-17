@@ -1,21 +1,31 @@
 package com.uds.rest.model;
 
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Tamanho {
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	@Column
 	private String tamanho;
+	@Column
 	private double valor;
+	@Column
 	private Integer tempoDePrepadro;
-	private Date dataCadastramento;
-
+	
+	public Tamanho() {	}
+	
 	public Tamanho(Integer id, String tamanho, double valor, Integer tempoDePrepadro) {
 		this.id = id;
 		this.tamanho = tamanho;
 		this.valor = valor;
 		this.tempoDePrepadro = tempoDePrepadro;
-		this.dataCadastramento = new Date();
 	}
 
 	public Integer getId() {
@@ -50,18 +60,12 @@ public class Tamanho {
 		this.tempoDePrepadro = tempoDePrepadro;
 	}
 
-	public Date getDataCadastramento() {
-		return dataCadastramento;
-	}
-
-	public void setDataCadastramento(Date dataCadastramento) {
-		this.dataCadastramento = dataCadastramento;
-	}
-
 	@Override
 	public String toString() {
 		return "Tamanho [id=" + id + ", tamanho=" + tamanho + ", valor=" + valor + ", tempoDePrepadro="
-				+ tempoDePrepadro + ", dataCadastramento=" + dataCadastramento + "]";
+				+ tempoDePrepadro + "]";
 	}
+	
+	
 
 }

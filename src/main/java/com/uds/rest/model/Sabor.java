@@ -1,20 +1,35 @@
 package com.uds.rest.model;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class Sabor {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
+public class Sabor implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	private String sabor;
+	
+	@Column
+	private String descricao;
+	
+	@Column
 	private Integer tempoAdicional;
-	private Date dataCadastramento;
+	
 
-	public Sabor(Integer id, String sabor, Integer tempoAdicional) {
-		super();
+	public Sabor() {	}
+	
+	public Sabor(Integer id, String descricao, Integer tempoAdicional) {
 		this.id = id;
-		this.sabor = sabor;
+		this.descricao = descricao;
 		this.tempoAdicional = tempoAdicional;
-		this.dataCadastramento = new Date();
 	}
 
 	public Integer getId() {
@@ -25,12 +40,12 @@ public class Sabor {
 		this.id = id;
 	}
 
-	public String getSabor() {
-		return sabor;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setSabor(String sabor) {
-		this.sabor = sabor;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public Integer getTempoAdicional() {
@@ -41,18 +56,9 @@ public class Sabor {
 		this.tempoAdicional = tempoAdicional;
 	}
 
-	public Date getDataCadastramento() {
-		return dataCadastramento;
-	}
-
-	public void setDataCadastramento(Date dataCadastramento) {
-		this.dataCadastramento = dataCadastramento;
-	}
-
 	@Override
 	public String toString() {
-		return "Sabor [id=" + id + ", sabor=" + sabor + ", tempoAdicional=" + tempoAdicional + ", dataCadastramento="
-				+ dataCadastramento + "]";
+		return "Sabor [id=" + id + ", descricao=" + descricao + ", tempoAdicional=" + tempoAdicional + "]";
 	}
 
 }

@@ -1,41 +1,49 @@
 package com.uds.rest.model;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
 public class Pedido {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private Integer id;
+
+	 @OneToOne
+	 // @JoinColumn(name = "pizza_id", referencedColumnName = "id")
+	 @JsonIgnore
+	 private Pizza pizza;
+
 	private String tamanho;
 	private String sabor;
-	private List<String> personalizacoes;
 	private double valorTotal;
-	private int tempoDePreparo;
+	private Integer tempoTotal;
 
-	private Cliente cliente;
-	private Pizza pizza;
-	private PedidoStatus status;
-	private Date dataCadastramento;
-
-	public Pedido(Integer id, Cliente cliente, Pizza pizza) {
-		this.id = id;
-		this.cliente = cliente;
-		this.pizza = pizza;
-		this.status = PedidoStatus.ABERTO;
-		this.tamanho = pizza.getTamanho();
-		this.sabor = pizza.getSabor();
-
-		 this.personalizacoes = new ArrayList<>();
-		 for (Personalizacao personalizacao : pizza.getPersonalizacoes()) {
-		 	this.personalizacoes.add(personalizacao.getPersonalizacao());
-		 }
-
-		this.valorTotal = pizza.getPrecoTotal();
-		this.tempoDePreparo = pizza.getTempoDePreparo();
-		this.dataCadastramento = new Date();
-
+	public Pedido() {
 	}
+
+	public Pedido(Integer id, String tamanho, String sabor, double valorTotal, Integer tempoTotal) {
+		super();
+		this.id = id;
+		this.tamanho = tamanho;
+		this.sabor = sabor;
+		this.valorTotal = valorTotal;
+		this.tempoTotal = tempoTotal;
+	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -43,6 +51,16 @@ public class Pedido {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Pizza getPizza() {
+		return pizza;
+	}
+
+	public void setPizza(Pizza pizza) {
+		this.pizza = pizza;
+		this.tamanho = pizza.getTamanho();
+		this.sabor = pizza.getSabor();
 	}
 
 	public String getTamanho() {
@@ -61,74 +79,26 @@ public class Pedido {
 		this.sabor = sabor;
 	}
 
-	public List<String> getPersonalizacoes() {
-		if(this.personalizacoes.size() != pizza.getPersonalizacoes().size()) {
-			this.personalizacoes.clear();
-			for (Personalizacao perso : pizza.getPersonalizacoes()) {
-				this.personalizacoes.add(perso.getPersonalizacao());
-			}
-		}
-		
-		return this.personalizacoes;
-	}
-
-	public void setPersonalizacoes(List<String> personalizacoes) {
-		this.personalizacoes = personalizacoes;
-	}
-
 	public double getValorTotal() {
-		return pizza.getPrecoTotal();
+		return valorTotal;
 	}
 
 	public void setValorTotal(double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
 
-	public int getTempoDePreparo() {
-		return pizza.getTempoDePreparo();
+	public Integer getTempoTotal() {
+		return tempoTotal;
 	}
 
-	public void setTempoDePreparo(int tempoDePreparo) {
-		this.tempoDePreparo = tempoDePreparo;
+	public void setTempoTotal(Integer tempoTotal) {
+		this.tempoTotal = tempoTotal;
 	}
-
-//	public Cliente getCliente() {
-//		return cliente;
-//	}
-//
-//	public void setCliente(Cliente cliente) {
-//		this.cliente = cliente;
-//	}
-//
-//	public Pizza getPizza() {
-//		return pizza;
-//	}
-//
-//	public void setPizza(Pizza pizza) {
-//		this.pizza = pizza;
-//	}
-
-//	public PedidoStatus getStatus() {
-//		return status;
-//	}
-//
-//	public void setStatus(PedidoStatus status) {
-//		this.status = status;
-//	}
-//
-//	public Date getDataCadastramento() {
-//		return dataCadastramento;
-//	}
-//
-//	public void setDataCadastramento(Date dataCadastramento) {
-//		this.dataCadastramento = dataCadastramento;
-//	}
 
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id 
-				+ ", valorTotal=" + valorTotal + ", tempoDePreparo=" + tempoDePreparo + ", cliente=" + cliente
-				+ ", pizza=" + pizza + ", status=" + status + ", dataCadastramento=" + dataCadastramento + "]";
+		return "Pedido [id=" + id + ", tamanho=" + tamanho + ", sabor=" + sabor + ", valorTotal=" + valorTotal
+				+ ", tempoTotal=" + tempoTotal + "]";
 	}
 
 }

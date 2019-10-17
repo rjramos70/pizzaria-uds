@@ -1,24 +1,30 @@
 package com.uds.rest.model;
 
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
 public class Personalizacao {
 
+	@Id
+	@GeneratedValue
 	private Integer id;
-	private String personalizacao;
-	private double valorAdicional;
-	private Integer tempoAdicional;
-	private Date dataCadastramento;
 
-	public Personalizacao(Integer id, String personalizacao, double valorAdicional, Integer tempoAdicional) {
-		this.id = id;
-		this.personalizacao = personalizacao;
-		this.tempoAdicional = tempoAdicional;
-		this.valorAdicional = valorAdicional;
-		this.dataCadastramento = new Date();
-	}
+	private String descricao;
+
+	private double valorAdicional;
+
+	private Integer tempoAdicional;
 
 	public Personalizacao() {
+	}
+
+	public Personalizacao(Integer id, String descricao, double valorAdicional, Integer tempoAdicional) {
+		this.id = id;
+		this.descricao = descricao;
+		this.valorAdicional = valorAdicional;
+		this.tempoAdicional = tempoAdicional;
 	}
 
 	public Integer getId() {
@@ -29,16 +35,20 @@ public class Personalizacao {
 		this.id = id;
 	}
 
-	public String getPersonalizacao() {
-		return personalizacao;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setPersonalizacao(String personalizacao) {
-		this.personalizacao = personalizacao;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public double getValorAdicional() {
 		return valorAdicional;
+	}
+
+	public void setValorAdicional(double valorAdicional) {
+		this.valorAdicional = valorAdicional;
 	}
 
 	public Integer getTempoAdicional() {
@@ -49,22 +59,10 @@ public class Personalizacao {
 		this.tempoAdicional = tempoAdicional;
 	}
 
-	public void setValorAdicional(double valorAdicional) {
-		this.valorAdicional = valorAdicional;
-	}
-
-	public Date getDataCadastramento() {
-		return dataCadastramento;
-	}
-
-	public void setDataCadastramento(Date dataCadastramento) {
-		this.dataCadastramento = dataCadastramento;
-	}
-
 	@Override
 	public String toString() {
-		return "Personalizacao [id=" + id + ", personalizacao=" + personalizacao + ", valorAdicional=" + valorAdicional
-				+ ", dataCadastramento=" + dataCadastramento + "]";
+		return "Personalizacao [id=" + id + ", descricao=" + descricao + ", valorAdicional=" + valorAdicional
+				+ ", tempoAdicional=" + tempoAdicional + "]";
 	}
 
 }

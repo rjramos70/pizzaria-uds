@@ -1,29 +1,55 @@
 package com.uds.rest.model;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.uds.rest.exception.PersonalizacaoNotFoundException;
+
+@Entity
 public class Pizza {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+
 	private String tamanho;
 	private String sabor;
-	private List<Personalizacao> personalizacoes;
-	private double precoOriginal;
-	private Integer tempoOriginal;
-	private double precoTotal;
-	private Integer tempoDePreparo;
-	private Date dataCadastramento;
+	private double valorInicial;
+	private Integer tempoInicial;
+	private double valorTotal;
+	private Integer tempoTotal;
 
-	public Pizza(Integer id, String tamanho, String sabor) {
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Personalizacao> personalizacoes;
+
+	@OneToOne(mappedBy = "pizza")
+	@JsonIgnore
+	private Pedido pedido;
+
+	public Pizza() {
+	}
+
+	public Pizza(Integer id, String tamanho, String sabor, double valorInicial, Integer tempoInicial, double valorTotal,
+			Integer tempoTotal) {
 		super();
 		this.id = id;
 		this.tamanho = tamanho;
 		this.sabor = sabor;
-		this.personalizacoes = new ArrayList<>();
-		this.dataCadastramento = new Date();
+		this.valorInicial = valorInicial;
+		this.tempoInicial = tempoInicial;
+		this.valorTotal = valorTotal;
+		this.tempoTotal = tempoTotal;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -49,6 +75,47 @@ public class Pizza {
 		this.sabor = sabor;
 	}
 
+	public double getValorInicial() {
+		return valorInicial;
+	}
+
+	public void setValorInicial(double valorInicial) {
+		this.valorInicial = valorInicial;
+	}
+
+	public Integer getTempoInicial() {
+		return tempoInicial;
+	}
+
+	public void setTempoInicial(Integer tempoInicial) {
+		this.tempoInicial = tempoInicial;
+	}
+
+	public double getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+	public Integer getTempoTotal() {
+		return tempoTotal;
+	}
+
+	public void setTempoTotal(Integer tempoTotal) {
+		this.tempoTotal = tempoTotal;
+	}
+
+	public void inserePersonalizacao(Personalizacao personalizacao) {
+		if (personalizacao == null) {
+			throw new PersonalizacaoNotFoundException("Personalização não cosnta em nossa base de dados.");
+		}
+		setValorTotal(getValorTotal() + personalizacao.getValorAdicional());
+		setTempoTotal(getTempoTotal() + personalizacao.getTempoAdicional());
+		personalizacoes.add(personalizacao);
+	}
+
 	public List<Personalizacao> getPersonalizacoes() {
 		return personalizacoes;
 	}
@@ -57,71 +124,19 @@ public class Pizza {
 		this.personalizacoes = personalizacoes;
 	}
 
-	public void inserePersonalizacao(Personalizacao personalizacao) {
-		this.personalizacoes.add(personalizacao);
+	public Pedido getPedido() {
+		return pedido;
 	}
 
-	public double getPrecoOriginal() {
-		return precoOriginal;
-	}
-
-	public void setPrecoOriginal(double precoOriginal) {
-		this.precoOriginal = precoOriginal;
-	}
-
-	public Integer getTempoOriginal() {
-		return tempoOriginal;
-	}
-
-	public void setTempoOriginal(Integer tempoOriginal) {
-		this.tempoOriginal = tempoOriginal;
-	}
-
-	public double getPrecoTotal() {
-		return precoTotal;
-	}
-
-	public void setPrecoTotal(double precoTotal) {
-		this.precoTotal = precoTotal;
-	}
-	
-	public void incrementaPrecoTotal(double precoTotal) {
-		this.precoTotal += precoTotal;
-	}
-
-	public void decrementaPrecoTotal(double precoTotal) {
-		this.precoTotal -= precoTotal;
-	}
-	
-	public Integer getTempoDePreparo() {
-		return tempoDePreparo;
-	}
-
-	public void setTempoDePreparo(Integer tempoDePreparo) {
-		this.tempoDePreparo = tempoDePreparo;
-	}
-	
-	public void incrementaTempoDePreparo(Integer tempoDePreparo) {
-		this.tempoDePreparo += tempoDePreparo;
-	}
-
-	public void decrementaTempoDePreparo(Integer tempoDePreparo) {
-		this.tempoDePreparo -= tempoDePreparo;
-	}
-
-	public Date getDataCadastramento() {
-		return dataCadastramento;
-	}
-
-	public void setDataCadastramento(Date dataCadastramento) {
-		this.dataCadastramento = dataCadastramento;
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 
 	@Override
 	public String toString() {
-		return "Pizza [id=" + id + ", tamanho=" + tamanho + ", sabor=" + sabor + ", personalizacoes=" + personalizacoes
-				+ ", precoTotal=" + precoTotal + ", tempoDePreparo=" + tempoDePreparo + ", dataCadastramento="
-				+ dataCadastramento + "]";
+		return "Pizza [id=" + id + ", tamanho=" + tamanho + ", sabor=" + sabor + ", valorInicial=" + valorInicial
+				+ ", tempoInicial=" + tempoInicial + ", valorTotal=" + valorTotal + ", tempoTotal=" + tempoTotal
+				+ ", personalizacoes=" + personalizacoes + ", pedido=" + pedido + "]";
 	}
 
 }
